@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEOUL, 2026.10 — 一人旅のしおり</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171b26;
+    --surface:#20263a;
+    --surface-2:#262d44;
+    --line:#3a4160;
+    --gold:#d8ac4c;
+    --gold-dim:#8f7534;
+    --coral:#e2707a;
+    --coral-dim:#4a2b30;
+    --text:#f1ede2;
+    --muted:#9aa3bd;
+    --serif:'Noto Serif JP', serif;
+    --sans:'Noto Sans JP', sans-serif;
+    --mono:'Space Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px 80px;}
+
+  /* HERO */
+  .hero{
+    padding:48px 20px 28px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(216,172,76,0.16), transparent 60%),
+      var(--ink);
+  }
+  .hero .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.15em;
+    color:var(--gold);
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:40px;
+    margin:14px 0 6px;
+    letter-spacing:0.02em;
+  }
+  .hero .dates{
+    font-size:15px;
+    color:var(--muted);
+    margin-bottom:24px;
+  }
+  .hero .budget{
+    display:inline-block;
+    padding:18px 28px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--surface);
+  }
+  .hero .budget .label{font-size:12px;color:var(--muted);margin-bottom:4px;}
+  .hero .budget .amount{font-family:var(--serif);font-size:30px;color:var(--gold);}
+  .hero .budget .amount span{font-size:15px;color:var(--muted);margin-left:4px;}
+
+  /* CONFLICT BANNER */
+  .conflict-banner{
+    background:var(--coral-dim);
+    border-top:1px solid #6b3a41;
+    border-bottom:1px solid #6b3a41;
+    padding:14px 20px;
+    text-align:center;
+    font-size:12.5px;
+    color:#ffd9dc;
+    line-height:1.6;
+  }
+  .conflict-banner b{color:var(--coral);}
+
+  /* TABS */
+  .tab-nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    overflow-x:auto;
+    gap:0;
+    background:var(--ink);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{
+    flex:1 0 auto;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:var(--sans);
+    font-weight:500;
+    font-size:13px;
+    padding:15px 14px 13px;
+    cursor:pointer;
+    white-space:nowrap;
+    border-bottom:2px solid transparent;
+    transition:color .15s, border-color .15s;
+  }
+  .tab-btn .n{
+    display:block;
+    font-family:var(--mono);
+    font-size:9.5px;
+    letter-spacing:0.1em;
+    color:var(--gold-dim);
+    margin-bottom:3px;
+  }
+  .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .tab-btn.active .n{color:var(--gold);}
+  .tab-btn .badge{
+    display:inline-block;
+    margin-left:5px;
+    background:var(--coral);
+    color:#2a1114;
+    font-family:var(--mono);
+    font-size:9px;
+    padding:1px 5px;
+    border-radius:8px;
+    vertical-align:middle;
+  }
+
+  .tab-panel{display:none;padding-top:28px;animation:fade .2s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fade{from{opacity:0;}to{opacity:1;}}
+
+  /* SECTION TITLES (within tabs) */
+  h2.section-title{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:700;
+    margin:0 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+    color:var(--text);
+  }
+  h2.section-title.spaced{margin-top:40px;}
+  h2.section-title small{
+    display:block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+
+  /* ALERT: cancellation deadlines */
+  .alert-box{
+    background:var(--coral-dim);
+    border:1px solid #6b3a41;
+    border-radius:4px;
+    padding:18px 18px 6px;
+    margin-bottom:8px;
+  }
+  .alert-box .alert-head{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .alert-box .alert-head .mark{color:var(--coral);font-size:18px;}
+  .alert-box .alert-head .txt{font-weight:700;font-size:15px;color:#ffd9dc;}
+  .deadline-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    padding:12px 0;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .deadline-row:first-of-type{border-top:none;}
+  .deadline-row .who{font-size:14px;color:var(--text);}
+  .deadline-row .who .site{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .deadline-row .when{text-align:right;flex-shrink:0;}
+  .deadline-row .when .date{font-family:var(--mono);font-size:13px;color:#ffd9dc;}
+  .deadline-row .when .left{font-size:11px;color:var(--coral);margin-top:2px;}
+  .deadline-row .fee{font-size:11.5px;color:var(--muted);margin-top:3px;}
+
+  .alert-box.apply{background:rgba(216,172,76,0.09);border-color:var(--gold-dim);}
+  .alert-box.apply .alert-head .mark{color:var(--gold);}
+  .alert-box.apply .alert-head .txt{color:#ffe9b8;}
+  .alert-box.apply .deadline-row .when .date{color:#ffe9b8;}
+  .alert-box.apply .deadline-row .when .left{color:var(--gold);}
+
+  /* STATS */
+  .stat-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .stat{flex:1;min-width:110px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px 10px;text-align:center;}
+  .stat .num{font-family:var(--serif);font-size:21px;color:var(--gold);}
+  .stat .lbl{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4;}
+
+  /* MAP LINK */
+  .map-link{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--gold);
+    text-decoration:none;
+    border:1px solid var(--gold-dim);
+    padding:5px 12px;
+    border-radius:20px;
+    margin-top:8px;
+  }
+  .map-link:active{opacity:0.65;}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{
+    content:'';
+    position:absolute;left:6px;top:6px;bottom:6px;
+    width:1px;background:var(--line);
+  }
+  .day{position:relative;margin-bottom:36px;}
+  .day:last-child{margin-bottom:8px;}
+  .day::before{
+    content:'';
+    position:absolute;left:-26px;top:4px;
+    width:11px;height:11px;border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 4px var(--ink);
+  }
+  .day .day-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--gold);
+    letter-spacing:0.05em;
+    margin-bottom:2px;
+  }
+  .day h3{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:500;
+    margin:0 0 14px;
+  }
+  .event{
+    display:flex;
+    gap:14px;
+    padding:12px 14px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    margin-bottom:10px;
+  }
+  .event .time{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--gold);
+    flex-shrink:0;
+    width:44px;
+    padding-top:1px;
+  }
+  .event .detail .title{font-size:14.5px;color:var(--text);}
+  .event .detail .sub{font-size:12.5px;color:var(--muted);margin-top:3px;}
+
+  /* TABLES / CARDS */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px;
+    margin-bottom:14px;
+  }
+  .card .card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:12px;
+  }
+  .card .card-head .name{font-family:var(--serif);font-size:16.5px;}
+  .card .card-head .site-tag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--gold);
+    border:1px solid var(--gold-dim);
+    padding:2px 8px;
+    border-radius:20px;
+  }
+  .card.na{opacity:0.55;}
+  .card.na .card-head .name{text-decoration:line-through;text-decoration-color:var(--muted);}
+  .kv{display:flex;justify-content:space-between;padding:6px 0;font-size:13.5px;border-top:1px solid rgba(255,255,255,0.05);}
+  .kv:first-of-type{border-top:none;}
+  .kv .k{color:var(--muted);}
+  .kv .v{color:var(--text);text-align:right;}
+  .kv .v.gold{color:var(--gold);font-family:var(--mono);}
+
+  .note{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+
+  .foot-note{font-size:12px;color:var(--muted);margin-top:-4px;}
+
+  /* COST TABLE */
+  .cost-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .cost-table th{
+    text-align:left;
+    font-family:var(--mono);
+    font-weight:400;
+    font-size:10.5px;
+    letter-spacing:0.05em;
+    color:var(--muted);
+    padding:0 0 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .cost-table td{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top;}
+  .cost-table td:last-child{text-align:right;font-family:var(--mono);color:var(--gold);white-space:nowrap;}
+  .cost-table tr.total td{border-bottom:none;padding-top:16px;font-size:15px;color:var(--text);}
+  .cost-table tr.total td:last-child{color:var(--gold);font-size:18px;}
+  .cost-table .item-sub{display:block;font-size:11px;color:var(--muted);margin-top:2px;}
+
+  /* CHECKLIST */
+  .progress-wrap{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px 18px;
+    margin-bottom:20px;
+  }
+  .progress-wrap .p-top{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:8px;}
+  .progress-wrap .p-top span.count{font-family:var(--mono);color:var(--gold);}
+  .progress-bar{height:6px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;}
+  .progress-bar-fill{height:100%;background:var(--gold);width:0%;transition:width .3s;}
+
+  .check-group{margin-bottom:8px;}
+  .check-group-label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    color:var(--gold-dim);
+    margin:22px 0 8px;
+  }
+  .check-group-label:first-child{margin-top:0;}
+  .check-item{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:14px;
+    margin-bottom:8px;
+    cursor:pointer;
+  }
+  .check-item input{
+    appearance:none;
+    -webkit-appearance:none;
+    width:19px;height:19px;
+    flex-shrink:0;
+    margin-top:1px;
+    border:1.5px solid var(--gold-dim);
+    border-radius:4px;
+    background:transparent;
+    cursor:pointer;
+    position:relative;
+  }
+  .check-item input:checked{background:var(--gold);border-color:var(--gold);}
+  .check-item input:checked::after{
+    content:'✓';
+    position:absolute;top:-3px;left:2.5px;
+    font-size:13px;color:var(--ink);font-weight:700;
+  }
+  .check-item .ci-body .ci-title{font-size:14px;color:var(--text);}
+  .check-item .ci-body .ci-sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.6;}
+  .check-item .ci-body .ci-sub b{color:var(--gold);font-weight:500;}
+  .check-item.done .ci-title{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--gold-dim);}
+  .check-item.na{opacity:0.6;}
+  .check-item.na .ci-title{color:var(--muted);}
+  .tag-na{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:9.5px;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:1px 7px;
+    border-radius:20px;
+    margin-left:6px;
+  }
+
+  footer{
+    margin-top:44px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    font-size:11.5px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">SOLO TRIP · SEOUL, SOUTH KOREA</div>
+  <h1>ソウル一人旅</h1>
+  <div class="dates">確定: 10/6(火)〜10/12(月) ／ 分岐あり: 9/30〜10/6</div>
+  <div class="budget">
+    <div class="label">支払い済み確定分</div>
+    <div class="amount">¥238,151</div>
+  </div>
+  <p class="foot-note" style="margin:8px 0 0;">＋Airbnb2件が承認待ち（承認されれば最大+¥196,558）</p>
+</div>
+
+<div class="conflict-banner">
+  🔀 <b>10/1に事前収録＋ミニファンミがあるか、9/26までに要判断。</b>ある場合→フライト変更＋Hanok Hanok/Airbnbを利用。ない場合(10/8開催と判明)→条件付き分をキャンセル。詳しくは「期限」タブへ。
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" data-tab="schedule"><span class="n">01</span>日程</button>
+  <button class="tab-btn" data-tab="deadline"><span class="n">02</span>期限<span class="badge">要注意</span></button>
+  <button class="tab-btn" data-tab="shows"><span class="n">03</span>音楽番組</button>
+  <button class="tab-btn" data-tab="booking"><span class="n">04</span>予約詳細</button>
+  <button class="tab-btn" data-tab="cost"><span class="n">05</span>費用</button>
+  <button class="tab-btn" data-tab="todo"><span class="n">06</span>TODO<span class="badge" id="todo-badge"></span></button>
+</div>
+
+<div class="wrap">
+
+  <!-- TAB 1: 日程 -->
+  <div class="tab-panel active" id="tab-schedule">
+    <h2 class="section-title">日程<small>フライト・宿泊・観覧の流れ</small></h2>
+    <div class="timeline">
+
+      <div class="day">
+        <div class="day-label">DAY 1 · 10月6日（火）</div>
+        <h3>渡韓</h3>
+        <div class="event">
+          <div class="time">19:55</div>
+          <div class="detail">
+            <div class="title">成田(NRT) T1 発 → 仁川(ICN) T2 着 22:35</div>
+            <div class="sub">エアプサン BX165・エコノミー</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">23:45</div>
+          <div class="detail">
+            <div class="title">空港バス N6000 でホテルへ（乗り換えなし）</div>
+            <div class="sub">仁川空港第2ターミナル 地下1階発 → ヨムチャン駅・ソウル都市ガス(中央)下車／所要1時間38分(乗車86分)・₩17,000・翌1:23着／配車間隔 毎日6回</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">15:00〜</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル チェックイン</div>
+            <div class="sub">江西区 Gonghang-daero 663・シングルルーム・4泊目まで（confirmation 26232554）。バス到着が深夜1:23(10/7)になるため、事前にホテルへ遅めチェックインの連絡をしておくと安心。</div>
+            <a class="map-link" href="https://map.naver.com/p/search/골든서울호텔" target="_blank">📍 NAVERマップで見る</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-label">DAY 2 · 10月7日（水）</div>
+        <h3>ソウル満喫日</h3>
+        <div class="event">
+          <div class="time">終日</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル 連泊</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">終日</div>
+          <div class="detail">
+            <div class="title">SHOW CHAMPION 生放送（MBC M）</div>
+            <div class="sub">観覧は事前申込制／会場は他番組と同じくCJ ENM系列の可能性、要確認</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-label">DAY 3 · 10月8日（木）</div>
+        <h3>ソウル満喫日</h3>
+        <div class="event">
+          <div class="time">終日</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル 連泊</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">18:00頃〜</div>
+          <div class="detail">
+            <div class="title">M COUNTDOWN 生放送（Mnet）</div>
+            <div class="sub">CJ ENMセンター・麻浦区上岩山路66／観覧は事前申込制</div>
+            <a class="map-link" href="https://map.naver.com/p/search/CJ ENM센터" target="_blank">📍 NAVERマップで見る</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-label">DAY 4 · 10月9日（金）</div>
+        <h3>ソウル満喫日</h3>
+        <div class="event">
+          <div class="time">終日</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル 連泊</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">17:15頃〜</div>
+          <div class="detail">
+            <div class="title">ミュージックバンク 生放送（KBS 2TV）</div>
+            <div class="sub">KBS新館公開ホール・永登浦区汝矣島洞18／観覧は事前申込制</div>
+            <a class="map-link" href="https://map.naver.com/p/search/KBS신관 공개홀" target="_blank">📍 NAVERマップで見る</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-label">DAY 5 · 10月10日（土）</div>
+        <h3>ソウル満喫日</h3>
+        <div class="event">
+          <div class="time">〜12:00</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル（1件目）チェックアウト</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">15:00〜</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル（2件目）チェックイン</div>
+            <div class="sub">同ホテルへ連続予約・1泊（confirmation 26232592）</div>
+            <a class="map-link" href="https://map.naver.com/p/search/골든서울호텔" target="_blank">📍 NAVERマップで見る</a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">15:15頃〜</div>
+          <div class="detail">
+            <div class="title">ショー!K-POPの中心 生放送（MBC）</div>
+            <div class="sub">MBC上岩社屋・麻浦区城岩路267／観覧は事前申込制</div>
+            <a class="map-link" href="https://map.naver.com/p/search/MBC 상암 사옥" target="_blank">📍 NAVERマップで見る</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-label">DAY 6 · 10月11日（日）</div>
+        <h3>ソウル最終日</h3>
+        <div class="event">
+          <div class="time">〜12:00</div>
+          <div class="detail">
+            <div class="title">ゴールデンソウルホテル（2件目）チェックアウト</div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">15:20頃〜</div>
+          <div class="detail">
+            <div class="title">SBS人気歌謡 生放送（SBS）</div>
+            <div class="sub">SBSプリズムタワー・麻浦区上岩山路82／観覧は事前申込制</div>
+            <a class="map-link" href="https://map.naver.com/p/search/SBS 프리즘타워" target="_blank">📍 NAVERマップで見る</a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="time">夜〜</div>
+          <div class="detail">
+            <div class="title">仁川空港サウナへ移動・宿泊</div>
+            <div class="sub">ゴールデンソウルホテル チェックアウト(12:00)後、荷物を持って仁川空港へ。空港内のチムジルバン(Spa At Home T2等)で夜を明かし、そのまま翌朝の便へ。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-label">DAY 7 · 10月12日（月）</div>
+        <h3>帰国日</h3>
+        <div class="event">
+          <div class="time">07:55</div>
+          <div class="detail">
+            <div class="title">仁川(ICN) T2 発 → 成田(NRT) T1 着 10:35</div>
+            <div class="sub">ジンエアー LJ203・エコノミー</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 2: 期限 -->
+  <div class="tab-panel" id="tab-deadline">
+    <h2 class="section-title">🔀 日程の分岐点（最重要）<small>9/26までに決める必要あり</small></h2>
+    <div class="alert-box apply">
+      <div class="deadline-row">
+        <div class="who">判断材料が判明する時期<span class="site">10/1の1週間前＝目安9/24頃</span></div>
+        <div class="when"><div class="date">9/24頃</div><div class="left">木曜の事前収録(+ミニファンミ可能性)が10/1か10/8か判明</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">決断の締め切り<span class="site">Hanok Hanokの無料キャンセル期限</span></div>
+        <div class="when"><div class="date">9/26 12:00</div><div class="left" style="color:var(--coral);">これが一番早い期限。ここまでに10/1に向かうか決める</div></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <div class="card-head"><div class="name">分岐A：10/1に事前収録あり</div><div class="site-tag">要フライト変更</div></div>
+      <div class="note">現在の往路フライト(10/6着)を早める変更が必要(TripFlex加入済みなので変更しやすい)。宿泊はAirbnb「ソウルのゲストルーム」(John, 10/1〜10/11)が承認されればそれを利用、またはHanok Hanok(10/3〜10/6)→ゴールデンソウルホテル(10/6〜)と繋げて滞在。</div>
+    </div>
+    <div class="card" style="margin-top:10px;">
+      <div class="card-head"><div class="name">分岐B：10/1になし（10/8開催と判明）</div><div class="site-tag">現行プラン維持</div></div>
+      <div class="note">現在のフライト(10/6着)・ゴールデンソウルホテルの予定はそのまま。Hanok HanokとAirbnb2件はキャンセル（Airbnbは承認されていなければ何もしなくてもリクエスト取り消しでOK）。</div>
+    </div>
+
+    <h2 class="section-title spaced">⚠ キャンセル・支払い期限<small>日付が近い順に並んでいます</small></h2>
+    <div class="alert-box">
+      <div class="deadline-row">
+        <div class="who">Airbnb「ソウルのゲストルーム」ホスト承認<span class="site">確認コード HM3S9RYBEZ・ホスト:John</span></div>
+        <div class="when"><div class="date">残りわずか</div><div class="left">未承認なら自動キャンセル（現在「保留中」・請求は未発生）</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">Airbnb「ソウルのゲストルーム」ホスト承認<span class="site">ホスト:Timothy</span></div>
+        <div class="when"><div class="date">残りわずか</div><div class="left">未承認なら自動キャンセル（現在「保留中」・請求は未発生）</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">Hanok Hanok（条件付き・10/3〜10/6）<span class="site">予約番号1385435954518709</span></div>
+        <div class="when"><div class="date">9/26 12:00まで無料</div><div class="left">以降キャンセル料¥26,322</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">Airbnb「ソウルのゲストルーム」（John・10/1〜10/11）<span class="site">確認コード HM3S9RYBEZ</span></div>
+        <div class="when"><div class="date">9/26 15:00まで無料</div><div class="left">以降10/1 15:00のチェックインまでは一部返金</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">ゴールデンソウルホテル（1件目・10/6〜10/10）<span class="site">Trip.com・予約番号1385435792006386</span></div>
+        <div class="when"><div class="date">10/3 23:59まで無料</div><div class="left">以降払い戻し不可</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">ゴールデンソウルホテル（2件目・10/10〜10/11）<span class="site">Trip.com・予約番号1385435809836109</span></div>
+        <div class="when"><div class="date">10/7 23:59まで無料</div><div class="left">以降払い戻し不可</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">フライト（往復・新予約）<span class="site">Trip.com・エアプサン／ジンエアー</span></div>
+        <div class="when"><div class="date">TripFlex加入済み</div><div class="left">キャンセル・変更が比較的しやすい条件。詳細はTrip.comアプリで確認。</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">カメラ・ビデオ機材レンタル<span class="site">s-came.jp 注文番号 20260910101051036689</span></div>
+        <div class="when"><div class="date">利用10/5〜10/12</div><div class="left">キャンセル規定は要確認</div></div>
+      </div>
+    </div>
+    <p class="foot-note">⚠ 宿泊が最大5件重複しています（Airbnb John 10/1〜10/11、Airbnb Timothy 10/6〜10/11、Hanok Hanok 10/3〜10/6、ゴールデンソウルホテル×2 10/6〜10/11）。特に10/6〜10/11はAirbnb2件・ゴールデンソウルホテルが丸ごと重複するので、Airbnbが承認された時点でどれを残すか早めに整理を。HOTEL KOBOSはキャンセル済みです。</p>
+
+    <h2 class="section-title spaced">🎤 音楽番組 観覧申し込み期限<small>各番組ごとに個別申し込み・受付は1〜2日前・時間はTBA</small></h2>
+    <p class="foot-note" style="margin-top:0;margin-bottom:14px;">滞在が10/6〜10/12の1週間になったことで、水〜日の5番組すべて放送日に滞在中になりました。</p>
+    <div class="alert-box apply">
+      <div class="deadline-row">
+        <div class="who">SHOW CHAMPION（MBC M）<span class="site">10/7(水)放送</span></div>
+        <div class="when"><div class="date">目安: 10/5〜10/6</div><div class="left">日本出国前(10/6は渡韓当日)に申込みが必要な可能性大</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">M COUNTDOWN（Mnet）<span class="site">10/8(木)放送・CJ ENMセンター</span></div>
+        <div class="when"><div class="date">目安: 10/6〜10/7</div><div class="left">渡韓当日〜翌日。渡韓後の申込みで間に合う見込み</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">ミュージックバンク（KBS 2TV）<span class="site">10/9(金)放送・KBS新館公開ホール</span></div>
+        <div class="when"><div class="date">目安: 10/7〜10/8</div><div class="left">渡韓後に申込み可能</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">ショー!K-POPの中心（MBC）<span class="site">10/10(土)放送・MBC上岩社屋</span></div>
+        <div class="when"><div class="date">目安: 10/8〜10/9</div><div class="left">渡韓後に申込み可能</div></div>
+      </div>
+      <div class="deadline-row">
+        <div class="who">SBS人気歌謡（SBS）<span class="site">10/11(日)放送・SBSプリズムタワー</span></div>
+        <div class="when"><div class="date">目安: 10/9〜10/10</div><div class="left">翌朝7:55発の便まで一晩あるため時間の余裕あり</div></div>
+      </div>
+    </div>
+    <p class="foot-note">※申し込み開始時刻は番組・回によって異なりTBA（当日発表もあり）。申し込みには韓国の電話番号が必要な場合があるため、事前にeSIMなど現地番号の準備を推奨。応募方法（公式サイト／ファンクラブ／アプリ抽選など）は番組ごとに異なるため直前に公式SNSを確認してください。</p>
+  </div>
+
+  <!-- TAB 3: 音楽番組 -->
+  <div class="tab-panel" id="tab-shows">
+    <h2 class="section-title">音楽番組 観覧情報<small>局・日程・場所まとめ</small></h2>
+
+    <div class="card">
+      <div class="card-head"><div class="name">SHOW CHAMPION</div><div class="site-tag">MBC M・水曜</div></div>
+      <div class="kv"><div class="k">放送日</div><div class="v">10/7(水)</div></div>
+      <div class="kv"><div class="k">会場</div><div class="v">要確認</div></div>
+      <div class="note">申し込みは1〜2日前が目安（10/5〜10/6頃）。渡韓当日(10/6)またはその前日に申込みが必要になる可能性が高いので、渡韓前にチェック。会場は複数の候補があるため直前に公式で確認を。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">M COUNTDOWN</div><div class="site-tag">Mnet・木曜</div></div>
+      <div class="kv"><div class="k">放送日</div><div class="v">10/8(木) 18:00頃〜</div></div>
+      <div class="kv"><div class="k">会場</div><div class="v">CJ ENMセンター</div></div>
+      <div class="kv"><div class="k">住所</div><div class="v">ソウル特別市麻浦区上岩山路66</div></div>
+      <a class="map-link" href="https://map.naver.com/p/search/CJ ENM센터" target="_blank">📍 NAVERマップで見る</a>
+      <div class="note">申し込み目安は10/6〜10/7。渡韓後の申込みで間に合う見込み。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">ミュージックバンク</div><div class="site-tag">KBS 2TV・金曜</div></div>
+      <div class="kv"><div class="k">放送日</div><div class="v">10/9(金) 17:15頃〜</div></div>
+      <div class="kv"><div class="k">会場</div><div class="v">KBS新館公開ホール</div></div>
+      <div class="kv"><div class="k">住所</div><div class="v">ソウル特別市永登浦区汝矣島洞18</div></div>
+      <a class="map-link" href="https://map.naver.com/p/search/KBS신관 공개홀" target="_blank">📍 NAVERマップで見る</a>
+      <div class="note">申し込み目安は10/7〜10/8。渡韓後の申込みで間に合う見込み。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">ショー!K-POPの中心</div><div class="site-tag">MBC・土曜</div></div>
+      <div class="kv"><div class="k">放送日</div><div class="v">10/10(土) 15:15頃〜</div></div>
+      <div class="kv"><div class="k">会場</div><div class="v">MBC上岩社屋</div></div>
+      <div class="kv"><div class="k">住所</div><div class="v">ソウル特別市麻浦区城岩路267</div></div>
+      <a class="map-link" href="https://map.naver.com/p/search/MBC 상암 사옥" target="_blank">📍 NAVERマップで見る</a>
+      <div class="note">申し込み目安は10/8〜10/9。渡韓後の申込みで間に合う見込み。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">SBS人気歌謡</div><div class="site-tag">SBS・日曜</div></div>
+      <div class="kv"><div class="k">放送日</div><div class="v">10/11(日) 15:20頃〜</div></div>
+      <div class="kv"><div class="k">会場</div><div class="v">SBSプリズムタワー</div></div>
+      <div class="kv"><div class="k">住所</div><div class="v">ソウル特別市麻浦区上岩山路82</div></div>
+      <a class="map-link" href="https://map.naver.com/p/search/SBS 프리즘타워" target="_blank">📍 NAVERマップで見る</a>
+      <div class="note">申し込み目安は10/9〜10/10。翌朝7:55発の便まで一晩あるので、当日の移動は前回ほどタイトではない。</div>
+    </div>
+
+    <p class="foot-note">滞在が10/6〜10/12の1週間になったため、水〜日の主要5番組すべてが放送日に滞在中となりました。</p>
+  </div>
+
+  <!-- TAB 4: 予約詳細 -->
+  <div class="tab-panel" id="tab-booking">
+    <h2 class="section-title">現在の予約<small>有効な予約のみ</small></h2>
+
+    <div class="card" style="border-left:2px solid var(--muted);">
+      <div class="card-head"><div class="name">Airbnb「ソウルのゲストルーム」<span class="tag-na" style="border-color:var(--muted);color:var(--muted);">保留中・承認待ち</span></div><div class="site-tag">ホスト: John</div></div>
+      <div class="kv"><div class="k">宿泊</div><div class="v">10/1(木)〜10/11(日)・10泊</div></div>
+      <div class="kv"><div class="k">チェックイン / アウト</div><div class="v">15:00 / 11:00</div></div>
+      <div class="kv"><div class="k">エリア</div><div class="v">麻浦区・望遠/延南洞エリア（弘大近く）</div></div>
+      <div class="kv"><div class="k">金額</div><div class="v gold">¥143,269</div></div>
+      <div class="kv"><div class="k">確認コード</div><div class="v">HM3S9RYBEZ</div></div>
+      <div class="note">まだJohnさんの承認待ち（承認されるまで請求は発生しない）。承認されなければ自動的にリクエスト取り消しとなる。無料キャンセルは9/26 15:00まで、以降10/1 15:00のチェックインまでは一部返金。分岐Aの受け皿としても使える10泊フル滞在プラン。</div>
+    </div>
+
+    <div class="card" style="border-left:2px solid var(--muted);">
+      <div class="card-head"><div class="name">Airbnb「ソウルのゲストルーム」<span class="tag-na" style="border-color:var(--muted);color:var(--muted);">保留中・承認待ち</span></div><div class="site-tag">ホスト: Timothy</div></div>
+      <div class="kv"><div class="k">宿泊</div><div class="v">10/6(火)〜10/11(日)・5泊</div></div>
+      <div class="kv"><div class="k">チェックイン / アウト</div><div class="v">16:00 / 11:00</div></div>
+      <div class="kv"><div class="k">補助ホスト</div><div class="v">Jeong, Dogukan</div></div>
+      <div class="kv"><div class="k">金額</div><div class="v gold">¥53,289</div></div>
+      <div class="note">まだTimothyさんの承認待ち（承認されるまで請求は発生しない）。ゴールデンソウルホテル(10/6〜10/11)と全く同じ期間なので、承認されたらどちらか一方を選ぶ必要あり。</div>
+    </div>
+
+    <p class="foot-note">↑Airbnbの2件はどちらもホスト承認待ちで、まだ確定・請求ともにされていません。</p>
+
+    <div class="card" style="border-left:2px solid var(--gold);">
+      <div class="card-head"><div class="name">Hanok Hanok<span class="tag-na" style="border-color:var(--gold-dim);color:var(--gold);">条件付き</span></div><div class="site-tag">Trip.com</div></div>
+      <div class="kv"><div class="k">宿泊</div><div class="v">10/3(土)〜10/6(火)・3泊</div></div>
+      <div class="kv"><div class="k">チェックイン</div><div class="v">16:00〜21:00</div></div>
+      <div class="kv"><div class="k">部屋タイプ</div><div class="v">スタンダードダブルルーム(クイーンベッド1組)・食事なし</div></div>
+      <div class="kv"><div class="k">所在地</div><div class="v">鍾路区 Jahamun-ro 1na-gil 6</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v gold">¥49,645</div></div>
+      <div class="kv"><div class="k">予約番号</div><div class="v">1385435954518709</div></div>
+      <div class="note">10/1に事前収録／ミニファンミがあると判明した場合のみ利用。無料キャンセルは9/26 12:00まで(全予約中で最も早い期限)、以降キャンセル料¥26,322。</div>
+    </div>
+
+    <p class="foot-note">↑この1件は「10/1に事前収録があるか」次第の条件付き予約です。詳細は「期限」タブの分岐点を参照。</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="num">¥91,153</div><div class="lbl">確定分の宿泊費<br>(6泊)</div></div>
+      <div class="stat"><div class="num">約¥15,190</div><div class="lbl">確定分1泊あたり<br>平均</div></div>
+    </div>
+    <p class="foot-note" style="margin-top:-4px;">※空港サウナ代はKRW28,000〜38,000の目安レンジの中間値（約¥3,830）で計算した概算です。上記の平均は条件付き2件を含みません。</p>
+
+    <div class="card">
+      <div class="card-head"><div class="name">空港バス（ICN→ホテル）</div><div class="site-tag">N6000</div></div>
+      <div class="kv"><div class="k">乗車</div><div class="v">仁川空港第2ターミナル 地下1階</div></div>
+      <div class="kv"><div class="k">下車</div><div class="v">ヨムチャン駅・ソウル都市ガス(中央)</div></div>
+      <div class="kv"><div class="k">所要時間</div><div class="v">1時間38分（乗車86分＋徒歩10分）</div></div>
+      <div class="kv"><div class="k">運賃</div><div class="v gold">₩17,000</div></div>
+      <div class="kv"><div class="k">運行間隔</div><div class="v">毎日6回</div></div>
+      <div class="note">乗り換えなしでゴールデンソウルホテルの最寄りまで1本で行ける。23:45発なら翌1:23着の見込み（22:35着の便からの乗り継ぎを想定）。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">ゴールデンソウルホテル（1件目）</div><div class="site-tag">Trip.com</div></div>
+      <div class="kv"><div class="k">宿泊</div><div class="v">10/6(火)〜10/10(土)・4泊</div></div>
+      <div class="kv"><div class="k">チェックイン / アウト</div><div class="v">15:00以降 / 12:00まで</div></div>
+      <div class="kv"><div class="k">部屋タイプ</div><div class="v">シングルルーム（セミダブルベッド1組）</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v gold">¥65,421</div></div>
+      <div class="kv"><div class="k">1泊あたり</div><div class="v">¥16,355</div></div>
+      <div class="kv"><div class="k">確認番号</div><div class="v">26232554</div></div>
+      <a class="map-link" href="https://map.naver.com/p/search/골든서울호텔" target="_blank">📍 NAVERマップで見る</a>
+      <div class="note">予約番号1385435792006386・宿泊者KISHI KANAKO。所在地: 江西区Gonghang-daero663（金浦空港エリア）。無料キャンセルは10/3 23:59まで、以降払い戻し不可。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">ゴールデンソウルホテル（2件目）</div><div class="site-tag">Trip.com</div></div>
+      <div class="kv"><div class="k">宿泊</div><div class="v">10/10(土)〜10/11(日)・1泊</div></div>
+      <div class="kv"><div class="k">チェックイン / アウト</div><div class="v">15:00以降 / 12:00まで</div></div>
+      <div class="kv"><div class="k">部屋タイプ</div><div class="v">シングルルーム（セミダブルベッド1組）</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v gold">¥21,904</div></div>
+      <div class="kv"><div class="k">確認番号</div><div class="v">26232592</div></div>
+      <a class="map-link" href="https://map.naver.com/p/search/골든서울호텔" target="_blank">📍 NAVERマップで見る</a>
+      <div class="note">予約番号1385435809836109。1件目と連続する同ホテルの別予約。無料キャンセルは10/7 23:59まで、以降払い戻し不可。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">仁川空港サウナ（10/11夜）</div><div class="site-tag">当日利用・予約不可</div></div>
+      <div class="kv"><div class="k">利用日</div><div class="v">10/11(日)夜〜10/12(月)早朝</div></div>
+      <div class="kv"><div class="k">料金目安</div><div class="v gold">KRW 28,000〜38,000（約¥3,250〜4,400）</div></div>
+      <div class="note">ゴールデンソウルホテル チェックアウト(10/11 12:00)後の宿泊先。仁川空港内の「Spa At Home」等のチムジルバン施設は事前予約不可・当日払いのみ。復路がジンエアーLJ203(ICN発)のT2にSpa At Home T2があり利用しやすい。深夜〜早朝の利用プランを選ぶこと。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="name">往復フライト（新予約）</div><div class="site-tag">Trip.com</div></div>
+      <div class="kv"><div class="k">往路</div><div class="v">10/6(火) NRT 19:55 → ICN 22:35</div></div>
+      <div class="kv"><div class="k">　</div><div class="v">エアプサン BX165・エコノミー</div></div>
+      <div class="kv"><div class="k">復路</div><div class="v">10/12(月) ICN 07:55 → NRT 10:35</div></div>
+      <div class="kv"><div class="k">　</div><div class="v">ジンエアー LJ203・エコノミー</div></div>
+      <div class="kv"><div class="k">運賃</div><div class="v">¥32,720</div></div>
+      <div class="kv"><div class="k">税金・燃油サーチャージ</div><div class="v">¥23,450</div></div>
+      <div class="kv"><div class="k">Trip Coins</div><div class="v">−¥1,381</div></div>
+      <div class="kv"><div class="k">支払手数料割引</div><div class="v">−¥720</div></div>
+      <div class="kv"><div class="k">TripFlex（楽々キャンセル＆変更）</div><div class="v">¥10,950</div></div>
+      <div class="kv"><div class="k">合計金額</div><div class="v gold">¥65,019</div></div>
+      <div class="note">搭乗者: KISHI KANAKO(大人)。受託手荷物15kg/1名（各区間）、機内持込手荷物1個/1名。TripFlex加入済みのため、キャンセル・変更が比較的しやすい。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="name">カメラ・ビデオセット</div>
+        <div class="site-tag">s-came.jp</div>
+      </div>
+      <div class="kv"><div class="k">Nikon D5600 & SIGMA150-600mm F5-6.3 DG OS HSM レンズセット</div><div class="v gold">¥15,000</div></div>
+      <div class="kv"><div class="k">Panasonic HC-WX2M-T 4K PREMIUM ビデオカメラ</div><div class="v gold">¥7,000</div></div>
+      <div class="kv"><div class="k">ご請求額</div><div class="v gold">¥22,000</div></div>
+      <div class="kv"><div class="k">利用日</div><div class="v">2026/10/5〜10/12</div></div>
+      <div class="kv"><div class="k">発送日</div><div class="v">ビデオカメラ: 10/4発送</div></div>
+      <div class="kv"><div class="k">返却発送日</div><div class="v">10/12</div></div>
+      <a class="map-link" href="https://s-came.jp" target="_blank">🔗 s-came.jp</a>
+      <div class="note">注文番号 20260910101051036689・注文日 2026/9/10。利用期間が渡韓(10/6)より前の10/5から、帰国(10/12)と同日の返却発送まで設定されているので、日程には余裕あり。</div>
+    </div>
+
+    <h2 class="section-title spaced">キャンセル済み<small>参考情報・現在は無効</small></h2>
+
+    <div class="card na">
+      <div class="card-head"><div class="name">HOTEL KOBOS<span class="tag-na">キャンセル済み</span></div><div class="site-tag">Trip.com</div></div>
+      <div class="kv"><div class="k">宿泊予定だった期間</div><div class="v">9/30(水)〜10/3(土)・3泊</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v">¥56,144</div></div>
+      <div class="note">予約番号1385435954250718。返金額など詳細は不明。</div>
+    </div>
+
+    <div class="card na">
+      <div class="card-head"><div class="name">カメラ・ビデオセット（Rentio）<span class="tag-na">キャンセル済み</span></div><div class="site-tag">Rentio</div></div>
+      <div class="kv"><div class="k">内容</div><div class="v">Canon EOS R10&望遠レンズ／ソニー4Kビデオカメラ</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v">¥22,800</div></div>
+      <div class="note">注文番号 544688557。s-came.jpでの予約に切り替えたためキャンセル。返金額など詳細は不明。</div>
+    </div>
+
+    <div class="card na">
+      <div class="card-head"><div class="name">往復フライト（旧予約）<span class="tag-na">キャンセル済み</span></div><div class="site-tag">Trip.com</div></div>
+      <div class="kv"><div class="k">往路</div><div class="v">10/1 NRT 19:55 → ICN 22:35</div></div>
+      <div class="kv"><div class="k">復路</div><div class="v">10/4 GMP 19:50 → HND 22:00</div></div>
+      <div class="kv"><div class="k">支払額</div><div class="v">¥81,940</div></div>
+      <div class="kv"><div class="k">返金額</div><div class="v">¥73,580（復路¥52,210＋往路¥21,370）</div></div>
+      <div class="kv"><div class="k">実質負担（キャンセル料）</div><div class="v">¥8,360</div></div>
+      <div class="note">予約番号 1385436524798444。Trip.comより元の支払い方法へ返金済み。日程変更のためキャンセル。</div>
+    </div>
+
+    <div class="card na">
+      <div class="card-head"><div class="name">Aank Hotel Sinchon<span class="tag-na">キャンセル済み</span></div><div class="site-tag">予約番号あり</div></div>
+      <div class="kv"><div class="k">宿泊予定だった期間</div><div class="v">10/1(木)〜10/3(土)・2泊</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v">¥23,948</div></div>
+      <div class="note">予約番号 1385435674540395。無料キャンセル期限内(9/29まで)にキャンセルしたため追加費用なしの見込み。</div>
+    </div>
+
+    <div class="card na">
+      <div class="card-head"><div class="name">Anook Hotel Seoul Sinchon<span class="tag-na">キャンセル済み</span></div><div class="site-tag">Agoda</div></div>
+      <div class="kv"><div class="k">宿泊予定だった期間</div><div class="v">10/4(日)〜10/9(金)・5泊</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v">KRW 434,573（約¥50,400）</div></div>
+      <div class="note">無料キャンセル期限内(10/2まで)にキャンセルしたため追加費用なしの見込み。</div>
+    </div>
+
+    <div class="card na">
+      <div class="card-head"><div class="name">KOZAYO Hostel Hongdae<span class="tag-na">キャンセル済み</span></div><div class="site-tag">Agoda</div></div>
+      <div class="kv"><div class="k">宿泊予定だった期間</div><div class="v">10/3(土)〜10/4(日)・1泊</div></div>
+      <div class="kv"><div class="k">請求額</div><div class="v">KRW 94,776（約¥11,000）</div></div>
+      <div class="note">予約ID 1771458343。無料キャンセル期限内(9/25まで)にキャンセルしたため追加費用なしの見込み。</div>
+    </div>
+  </div>
+
+  <!-- TAB 5: 費用 -->
+  <div class="tab-panel" id="tab-cost">
+    <h2 class="section-title">費用まとめ<small>カテゴリー別</small></h2>
+
+    <table class="cost-table">
+      <tr><th>✈️ フライト</th><th style="text-align:right"></th></tr>
+      <tr><td>旧フライト キャンセル料（実質負担分）<span class="item-sub">支払¥81,940 − 返金¥73,580</span></td><td>¥8,360</td></tr>
+      <tr><td>新フライト（往復）<span class="item-sub">Trip.com・エアプサン／ジンエアー</span></td><td>¥65,019</td></tr>
+      <tr class="total"><td>フライト計</td><td>¥73,379</td></tr>
+    </table>
+
+    <table class="cost-table" style="margin-top:22px;">
+      <tr><th>🏨 宿泊（確定・支払い済み）</th><th style="text-align:right"></th></tr>
+      <tr><td>ゴールデンソウルホテル（1件目・4泊）<span class="item-sub">10/6〜10/10</span></td><td>¥65,421</td></tr>
+      <tr><td>ゴールデンソウルホテル（2件目・1泊）<span class="item-sub">10/10〜10/11</span></td><td>¥21,904</td></tr>
+      <tr><td>仁川空港サウナ（10/11夜）<span class="item-sub">目安・当日払い</span></td><td>約¥3,830</td></tr>
+      <tr class="total"><td>確定宿泊 計</td><td>約¥91,155</td></tr>
+    </table>
+
+    <table class="cost-table" style="margin-top:22px;">
+      <tr><th>🏨 宿泊（条件付き・支払い済み）</th><th style="text-align:right"></th></tr>
+      <tr><td>Hanok Hanok（3泊）<span class="item-sub">10/1に事前収録があれば利用・10/3〜10/6</span></td><td>¥49,645</td></tr>
+      <tr class="total"><td>条件付き宿泊 計</td><td>¥49,645</td></tr>
+    </table>
+
+    <table class="cost-table" style="margin-top:22px;">
+      <tr><th>🏨 宿泊（保留中・未請求）</th><th style="text-align:right"></th></tr>
+      <tr><td>Airbnb ソウルのゲストルーム（John・10泊）<span class="item-sub">10/1〜10/11・ホスト承認待ち</span></td><td>¥143,269</td></tr>
+      <tr><td>Airbnb ソウルのゲストルーム（Timothy・5泊）<span class="item-sub">10/6〜10/11・ホスト承認待ち</span></td><td>¥53,289</td></tr>
+      <tr class="total"><td>保留中宿泊 計（未請求）</td><td>¥196,558</td></tr>
+    </table>
+
+    <table class="cost-table" style="margin-top:22px;">
+      <tr><th>🎥 レンタル機材</th><th style="text-align:right"></th></tr>
+      <tr><td>カメラ・ビデオ機材<span class="item-sub">s-came.jp 注文番号 20260910101051036689</span></td><td>¥22,000</td></tr>
+      <tr class="total"><td>レンタル計</td><td>¥22,000</td></tr>
+    </table>
+
+    <table class="cost-table" style="margin-top:22px;">
+      <tr><th>🚌 交通</th><th style="text-align:right"></th></tr>
+      <tr><td>空港バス N6000<span class="item-sub">₩17,000</span></td><td>約¥1,972</td></tr>
+      <tr class="total"><td>交通計</td><td>約¥1,972</td></tr>
+    </table>
+
+    <table class="cost-table" style="margin-top:22px;">
+      <tr class="total"><td style="font-size:16px;">支払い済み確定合計<span class="item-sub" style="font-size:11.5px;">フライト＋確定宿泊＋条件付き宿泊＋レンタル＋交通</span></td><td style="font-size:20px;">約¥238,151</td></tr>
+      <tr><td>＋Airbnb2件が承認された場合<span class="item-sub">最大でこの分が追加される可能性（未請求）</span></td><td>＋¥196,558</td></tr>
+    </table>
+    <p class="foot-note">⚠ 宿泊だけで最大5件（条件付き含む）が重複しています。9/26までに10/1の予定が判明しなければ、Hanok Hanokと承認待ちのAirbnb2件をキャンセルするかどうか判断が必要です。全てキャンセルすれば確定合計は約¥188,506まで下がります（キャンセル料が発生しなければ）。</p>
+    <footer>
+      KRW→JPYは概算レートで換算した目安です。実際の請求額と異なる場合があります。<br>
+      最終更新: このしおりを開いた日時を基準にキャンセル期限までの残り日数を自動計算しています。
+    </footer>
+  </div>
+
+  <!-- TAB 6: TODO -->
+  <div class="tab-panel" id="tab-todo">
+    <h2 class="section-title">渡韓前 準備TODO<small>チェックはこの端末に保存されます</small></h2>
+
+    <div class="progress-wrap">
+      <div class="p-top"><span>準備の進み具合</span><span class="count" id="progress-count">0 / 0</span></div>
+      <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    </div>
+
+    <div class="check-group-label">日程の分岐（最優先）</div>
+    <label class="check-item" data-id="branch-decision">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">10/1の事前収録＋ミニファンミ有無を確認</div>
+        <div class="ci-sub">目安9/24頃に判明予定。<b>9/26 12:00（Hanok Hanokの無料キャンセル期限）</b>までに、10/1に向かうかどうか決める。向かわない場合はHanok Hanokと承認待ちのAirbnb2件をキャンセル。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="airbnb-check">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">Airbnb2件の承認状況をチェック</div>
+        <div class="ci-sub">John・Timothyそれぞれの承認待ちリクエスト。承認された場合、ゴールデンソウルホテルやHanok Hanokと日程が重複するのでどれを使うか決める。</div>
+      </div>
+    </label>
+
+    <div class="check-group-label">宿泊</div>
+    <label class="check-item" data-id="hotel-lastnight">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">仁川空港サウナの場所・営業時間を確認</div>
+        <div class="ci-sub">10/11 12:00にゴールデンソウルホテルをチェックアウト後、仁川空港のチムジルバン(Spa At Home T2等)で夜を明かす予定。事前予約不可・当日払いのみなので、料金プラン(深夜利用)と場所をあらかじめ確認しておく。</div>
+      </div>
+    </label>
+
+    <div class="check-group-label">スマホ・通信</div>
+    <label class="check-item" data-id="esim-buy">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">eSIM購入</div>
+        <div class="ci-sub">目安: 出発3〜1日前まで。滞在6泊7日分＋予備でデータ容量・日数を選択。使い放題(無制限)か容量制かは動画視聴・SNS投稿の頻度で選ぶ。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="esim-setup">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">eSIM設定（プロファイルインストール）</div>
+        <div class="ci-sub">出発前に自宅のWi-Fiでプロファイルをインストールしておく（現地でQRコード読込は電波が不安定で失敗しやすい）。「モバイル通信プランを追加」→QRコードをスキャン→ラベル設定→<b>データローミングはオンのまま、主回線は日本のSIMに設定</b>。現地到着後に韓国eSIM回線をオンに切替。</div>
+      </div>
+    </label>
+
+    <div class="check-group-label">入国・出国手続き</div>
+    <label class="check-item" data-id="earrival">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">e-Arrival Card（韓国電子入国申告書）提出</div>
+        <div class="ci-sub">申請可能期間: <b>10/3〜10/6</b>（到着日を含む3日前から）。韓国政府公式サイトで無料・所要10分。フライト情報・宿泊先住所（ゴールデンソウルホテル）を用意。提出後の画面はスクショ保存。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="icn-smartpass">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">ICN SMARTPASS登録</div>
+        <div class="ci-sub">新しい帰国便は仁川空港(ICN)発（ジンエアーLJ203）になったので、今回は対象内。日本にいるうちにアプリで顔写真・パスポート情報を登録しておくと、出国時の審査が自動化されてスムーズ。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="vjw">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">Visit Japan Web 登録（帰国用）</div>
+        <div class="ci-sub">羽田空港は対応済み。期限の定めはないが出発数日前までに済ませておくと安心。入国審査用・税関申告用の両方を登録し、発行されたQRコードをスクショ保存しておく。</div>
+      </div>
+    </label>
+
+    <div class="check-group-label">その他のおすすめ準備</div>
+    <label class="check-item" data-id="plug">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">変換プラグの用意</div>
+        <div class="ci-sub">韓国はCタイプ/SEタイプのコンセント。日本のAタイプ機器はそのまま挿せないため変換プラグが必要。カメラ・ビデオ機材の充電にも必須。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="insurance">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">海外旅行保険の加入確認</div>
+        <div class="ci-sub">クレジットカード付帯の保険で足りるか確認。レンタル中のカメラ機材の破損・盗難補償の有無もs-came.jp側で要チェック。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="apps">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">現地アプリのダウンロード</div>
+        <div class="ci-sub">NAVER Map（乗換・徒歩ルート）、Papago（翻訳）、カカオT（タクシー配車）を入れておくと移動がスムーズ。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="cash">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">韓国ウォンの現金・T-money準備</div>
+        <div class="ci-sub">交通系ICカード「T-money」はコンビニ(CU/GS25等)で購入・チャージ可能。音楽番組観覧の交通移動用に少額の現金もあると安心。</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="card-notify">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">クレジットカードの海外利用設定確認</div>
+        <div class="ci-sub">ホテル決済（VISA下4桁4250）が海外利用制限に引っかからないか事前にアプリ等で確認。</div>
+      </div>
+    </label>
+
+    <div class="check-group-label">サイン会準備</div>
+    <label class="check-item" data-id="letter-riku">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">りくちゃんへの手紙を書く</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="letter-stickers">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">手紙に事前に買っておいたシールを入れる</div>
+      </div>
+    </label>
+    <label class="check-item" data-id="signing-gift">
+      <input type="checkbox">
+      <div class="ci-body">
+        <div class="ci-title">サイン会に持っていくソンムルを準備する</div>
+      </div>
+    </label>
+  </div>
+
+</div>
+
+<script>
+  function daysLeft(targetISO){
+    const now = new Date();
+    const target = new Date(targetISO);
+    const diff = Math.ceil((target - now) / (1000*60*60*24));
+    if(diff < 0) return '期限切れ';
+    if(diff === 0) return '本日が期限';
+    return `残り${diff}日`;
+  }
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // Checklist persistence (localStorage) — excludes N/A item from progress count
+  const STORAGE_KEY = 'seoul-trip-todo-v1';
+  let checkedState = {};
+  try{ checkedState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ checkedState = {}; }
+
+  const items = document.querySelectorAll('.check-item:not(.na) input[type=checkbox]');
+  const naItems = document.querySelectorAll('.check-item.na input[type=checkbox]');
+
+  function updateProgress(){
+    const total = items.length;
+    const done = Array.from(items).filter(i => i.checked).length;
+    document.getElementById('progress-count').textContent = done + ' / ' + total;
+    document.getElementById('progress-fill').style.width = (total ? (done/total*100) : 0) + '%';
+    document.getElementById('todo-badge').textContent = (total - done) > 0 ? (total-done) : '';
+  }
+
+  function bindItem(input){
+    const wrap = input.closest('.check-item');
+    const id = wrap.dataset.id;
+    if(checkedState[id]){ input.checked = true; wrap.classList.add('done'); }
+    input.addEventListener('change', () => {
+      checkedState[id] = input.checked;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedState));
+      wrap.classList.toggle('done', input.checked);
+      updateProgress();
+    });
+  }
+  items.forEach(bindItem);
+  naItems.forEach(bindItem);
+  updateProgress();
+</script>
+
+</body>
+</html>
